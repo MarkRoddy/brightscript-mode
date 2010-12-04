@@ -24,3 +24,8 @@ For detail, see `comment-dwim'."
   (modify-syntax-entry ?\n "> b" brightscript-mode-syntax-table)
 
 )
+
+
+(provide 'brightscript-mode)
+
+
