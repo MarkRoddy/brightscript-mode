@@ -10,7 +10,7 @@
 (defvar brightscript-keywords-regexp (regexp-opt brightscript-keywords 'words))
 
 (defvar brightscript-types
-  '("Boolean" "Integer" "Float" "Double" "String" "Object")
+  '("Boolean" "Integer" "Float" "Double" "String" "Object" "Void")
   "BrightScript built in types")
 (defvar brightscript-types-regexp (regexp-opt brightscript-types 'words))
 
@@ -22,14 +22,27 @@
 (defvar brightscript-contstants-regexp (regexp-opt brightscript-contstants 'words))
 
 (defvar brightscript-builtins
-  '()
+  '("Type" "Rnd" "Box" "Run" "Eval" "GetLastRunCompileError" "GetLastRunRuntimeError")
   "BrightScript built-ins")
 (defvar brightscript-builtins-regexp (regexp-opt brightscript-builtins 'words))
 
 (defvar brightscript-functions
-  '()
+  '(   
+    ;;Global Utility
+    "Sleep" "Wait" "CreateObject" "GetInterface" "UpTime" "RebootSystem" "ListDir" "ReadAsciiFile" "WriteAsciiFile" "CopyFile" "MatchFiles" "DeleteFile" "DeleteDirectory" "CreateDirectory" "FormatDrive"
+
+    ;;Strings
+    "UCase" "LCase" "Asc" "Chr" "Instr" "Left" "Len" "Mid" "Right" "Str" "Val" 
+    ;;"String" - Conflichts with type of the same name
+
+    ;;Math
+    "Abs" "Atn" "Cos" "Csng" "Cdbl" "Exp" "Fix" "Int" "Log" "Sgn" "Sin" "Sqr" "Tan"
+    )
   "BrightScript functions")
 (defvar brightscript-functions-regexp (regexp-opt brightscript-functions 'words))
+
+
+
 
 
 ;;clear memory
@@ -42,10 +55,10 @@
 
 (setq brightscript-fontlock-kwds
       `(
+        (,brightscript-contstants-regexp . font-lock-constant-face)
         (,brightscript-keywords-regexp . font-lock-keyword-face)
         (,brightscript-functions-regexp . font-lock-function-name-face)
         (,brightscript-builtins-regexp . font-lock-builtin-face)
-        (,brightscript-contstants-regexp . font-lock-constant-face)
         (,brightscript-types-regexp . font-lock-type-face)
         ))
 
@@ -67,7 +80,7 @@ For detail, see `comment-dwim'."
 
 (define-derived-mode brightscript-mode fundamental-mode
   (setq font-lock-defaults '(brightscript-fontlock-kwds nil  t))
-  (setq mode-name "brightscript mode")
+  (setq mode-name "brightscript-mode")
   ;; modify the keymap
   (define-key brightscript-mode-map [remap comment-dwim] 'brightscript-comment-dwim)
 
